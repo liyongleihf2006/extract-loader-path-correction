@@ -71,13 +71,7 @@
     "url": "git+https://github.com/liyongleihf2006/extract-loader-path-correction.git"
   },
   "scripts": {
-    "build": "babel src -d lib --source-maps",
-    "coverage": "babel-node ./node_modules/istanbul/lib/cli cover _mocha",
-    "posttest": "eslint src test",
-    "prepublish": "npm test",
-    "pretest": "npm run build",
-    "release": "standard-version",
-    "test": "mocha -R spec --compilers js:babel-register"
+    "build": "babel src -d lib --source-maps"
   },
   "version": "1.0.0"
 }
