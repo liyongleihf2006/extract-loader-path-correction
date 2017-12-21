@@ -1,0 +1,83 @@
+{
+  "_from": "extract-loader-path-correction",
+  "_id": "extract-loader-path-correction@1.0.0",
+  "_inBundle": false,
+  "_integrity": "sha1-+C27Dhf3NY6O2Z78NVb3froD9E8=",
+  "_location": "/extract-loader-path-correction",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "extract-loader-path-correction",
+    "name": "extract-loader-path-correction",
+    "escapedName": "extract-loader-path-correction",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#DEV:/",
+    "#USER"
+  ],
+  "_spec": "extract-loader-path-correction",
+  "author": {
+    "name": "liyongleihf2006",
+    "email": "573044965@qq.com"
+  },
+  "bugs": {
+    "url": "https://github.com/liyongleihf2006/extract-loader-path-correction/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "loader-utils": "^1.1.0"
+  },
+  "deprecated": false,
+  "description": "webpack loader to extract HTML and CSS from the bundle",
+  "devDependencies": {
+    "babel-cli": "^6.5.1",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-register": "^6.4.3",
+    "chai": "^4.1.0",
+    "chai-fs": "^1.0.0",
+    "css-loader": "^0.28.2",
+    "eslint": "^3.19.0",
+    "eslint-config-peerigon": "^10.1.1",
+    "eslint-plugin-flowtype": "^2.33.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsdoc": "^3.1.0",
+    "file-loader": "^0.11.1",
+    "html-loader": "^0.5.0",
+    "istanbul": "^0.4.2",
+    "mocha": "^3.4.1",
+    "rimraf": "^2.5.1",
+    "style-loader": "^0.18.1",
+    "webpack": "^2.6.0"
+  },
+  "homepage": "https://github.com/liyongleihf2006/extract-loader-path-correction#readme",
+  "keywords": [
+    "webpack",
+    "loader",
+    "extract",
+    "html",
+    "css",
+    "path",
+    "relative"
+  ],
+  "license": "Unlicense",
+  "main": "lib/extract-loader-path-correction.js",
+  "name": "extract-loader-path-correction",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liyongleihf2006/extract-loader-path-correction.git"
+  },
+  "scripts": {
+    "build": "babel src -d lib --source-maps",
+    "coverage": "babel-node ./node_modules/istanbul/lib/cli cover _mocha",
+    "posttest": "eslint src test",
+    "prepublish": "npm test",
+    "pretest": "npm run build",
+    "release": "standard-version",
+    "test": "mocha -R spec --compilers js:babel-register"
+  },
+  "version": "1.0.0"
+}
