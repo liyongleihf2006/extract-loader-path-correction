@@ -1,4 +1,4 @@
-extract-loader-pathCorrection
+extract-loader-path-correction
 ----
 对[extract-loader](https://www.npmjs.com/package/extract-loader)的一个修改,主要是校正引用文件路径不正确的问题
 
