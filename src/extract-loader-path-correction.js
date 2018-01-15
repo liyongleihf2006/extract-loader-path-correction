@@ -1,6 +1,6 @@
 import vm from "vm";
 import path from "path";
-import loaderUtils,{ getOptions } from "loader-utils";
+import { getOptions,urlToRequest } from "loader-utils";
 
 /**
  * @name LoaderContext
@@ -16,8 +16,7 @@ import loaderUtils,{ getOptions } from "loader-utils";
  * Random placeholder. Marks the location in the source code where the result of other modules should be inserted.
  * @type {string}
  */
-const rndPlaceholder =
-    "__EXTRACT_LOADER_PLACEHOLDER__" + rndNumber() + rndNumber();
+const rndPlaceholder = "__EXTRACT_LOADER_PLACEHOLDER__" + rndNumber() + rndNumber();
 
 /**
  * Executes the given module's src in a fake context in order to get the resulting string.
@@ -37,15 +36,13 @@ function extractLoader(content) {
     });
     const sandbox = {
         require: resourcePath => {
-            const absPath = path
-                .resolve(path.dirname(this.resourcePath), resourcePath)
-                .split("?")[0];
+            const absPath = path.resolve(path.dirname(this.resourcePath), resourcePath).split("?")[0];
 
-            // If the required file is the css-loader helper, we just require it with node's require.
+            // If the required file is a css-loader helper, we just require it with node's require.
             // If the required file should be processed by a loader we do not touch it (even if it is a .js file).
-            if (/^[^!]*css-base\.js$/i.test(resourcePath)) {
-                // Mark the file as dependency so webpack's watcher is working for css-base.js. Other dependencies
-                // are automatically added by loadModule() below
+            if (/^[^!]*node_modules[/\\]css-loader[/\\].*\.js$/i.test(resourcePath)) {
+                // Mark the file as dependency so webpack's watcher is working for the css-loader helper.
+                // Other dependencies are automatically added by loadModule() below
                 this.addDependency(absPath);
 
                 return require(absPath); // eslint-disable-line import/no-dynamic-require
@@ -71,16 +68,16 @@ function extractLoader(content) {
                 (src, i) => runModule(src, dependencies[i], publicPath)
             )
         )
-        .then(results =>{
+        .then(results =>
+            {
                 //When using html-loader extractLoader file-loader to achieve the HTML file directly using the link tag into the CSS file in the CSS file if the file (the font files, pictures, SVG etc.) when generating CSS when the specified name (specified in file-loader) containing [path], the relative path is introduced in the CSS file is incorrect the problem
                 //解决当使用html-loader extractLoader file-loader 来实现html文件中直接使用link标签引入css文件时css文件中若是有引入文件(字体文件,图片,svg等等等等)时候当生成css时候指定的name(file-loader中指定的)中包含[path]时候,被css引入的文件的相对路径不正确的问题
                 if(/\[path\]/.test(this.loaders[this.loaderIndex-1].options.name)){
-                    results = results.map(result=>loaderUtils.urlToRequest(path.relative(path.relative(this.options.context,this.context),result)))
+                    results = results.map(result=>urlToRequest(path.relative(path.relative(this.options.context,this.context),result)))
                 }
-                return sandbox.module.exports
-                        .toString()
-                        .replace(new RegExp(rndPlaceholder, "g"), () => results.shift())
-        })
+                return sandbox.module.exports.toString().replace(new RegExp(rndPlaceholder, "g"), () => results.shift())
+            }
+        )
         .then(content => callback(null, content))
         .catch(callback);
 }
@@ -95,10 +92,7 @@ function extractLoader(content) {
 function loadModule(request) {
     return new Promise((resolve, reject) => {
         // LoaderContext.loadModule automatically calls LoaderContext.addDependency for all requested modules
-        this.loadModule(
-            request,
-            (err, src) => (err ? reject(err) : resolve(src))
-        );
+        this.loadModule(request, (err, src) => (err ? reject(err) : resolve(src)));
     });
 }
 

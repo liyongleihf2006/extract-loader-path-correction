@@ -1,25 +1,4 @@
 {
-  "_from": "extract-loader-path-correction",
-  "_id": "extract-loader-path-correction@1.0.0",
-  "_inBundle": false,
-  "_integrity": "sha1-+C27Dhf3NY6O2Z78NVb3froD9E8=",
-  "_location": "/extract-loader-path-correction",
-  "_phantomChildren": {},
-  "_requested": {
-    "type": "tag",
-    "registry": true,
-    "raw": "extract-loader-path-correction",
-    "name": "extract-loader-path-correction",
-    "escapedName": "extract-loader-path-correction",
-    "rawSpec": "",
-    "saveSpec": null,
-    "fetchSpec": "latest"
-  },
-  "_requiredBy": [
-    "#DEV:/",
-    "#USER"
-  ],
-  "_spec": "extract-loader-path-correction",
   "author": {
     "name": "liyongleihf2006",
     "email": "573044965@qq.com"
@@ -27,11 +6,9 @@
   "bugs": {
     "url": "https://github.com/liyongleihf2006/extract-loader-path-correction/issues"
   },
-  "bundleDependencies": false,
   "dependencies": {
     "loader-utils": "^1.1.0"
   },
-  "deprecated": false,
   "description": "webpack loader to extract HTML and CSS from the bundle",
   "devDependencies": {
     "babel-cli": "^6.5.1",
@@ -73,5 +50,5 @@
   "scripts": {
     "build": "babel src -d lib --source-maps"
   },
-  "version": "1.0.0"
+  "version": "1.0.2"
 }
