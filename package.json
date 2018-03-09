@@ -50,5 +50,5 @@
   "scripts": {
     "build": "babel src -d lib --source-maps"
   },
-  "version": "1.0.2"
+  "version": "1.0.3"
 }

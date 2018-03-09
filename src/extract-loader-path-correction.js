@@ -28,7 +28,7 @@ const rndPlaceholder = "__EXTRACT_LOADER_PLACEHOLDER__" + rndNumber() + rndNumbe
 function extractLoader(content) {
     const callback = this.async();
     const options = getOptions(this) || {};
-    const publicPath = options.publicPath === undefined ? this.options.output.publicPath : options.publicPath;
+    const publicPath = options.publicPath === undefined ? ((this.options&&this.options.output)?this.options.output.publicPath:undefined): options.publicPath;
     const dependencies = [];
     const script = new vm.Script(content, {
         filename: this.resourcePath,
@@ -72,8 +72,8 @@ function extractLoader(content) {
             {
                 //When using html-loader extractLoader file-loader to achieve the HTML file directly using the link tag into the CSS file in the CSS file if the file (the font files, pictures, SVG etc.) when generating CSS when the specified name (specified in file-loader) containing [path], the relative path is introduced in the CSS file is incorrect the problem
                 //解决当使用html-loader extractLoader file-loader 来实现html文件中直接使用link标签引入css文件时css文件中若是有引入文件(字体文件,图片,svg等等等等)时候当生成css时候指定的name(file-loader中指定的)中包含[path]时候,被css引入的文件的相对路径不正确的问题
-                if(/\[path\]/.test(this.loaders[this.loaderIndex-1].options.name)){
-                    results = results.map(result=>urlToRequest(path.relative(path.relative(this.options.context,this.context),result)))
+                if(this.loaders[this.loaderIndex-1].options&&/\[path\]/.test(this.loaders[this.loaderIndex-1].options.name)){
+                    results = results.map(result=>urlToRequest(path.relative(path.relative(this.rootContext||this.options.context,this.context),result)))
                 }
                 return sandbox.module.exports.toString().replace(new RegExp(rndPlaceholder, "g"), () => results.shift())
             }
